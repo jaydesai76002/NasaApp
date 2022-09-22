@@ -28,6 +28,7 @@ const LoginScreen = ({ navigation, route }: props) => {
         setLoading(true)
         asteroidRandomCall(`api_key=${apiKey}`)
             .then(async (res: any) => {
+                setLoading(false)
                 callAstroApi(res?.data?.near_earth_objects[Math.floor(Math.random() * res?.data?.near_earth_objects.length)].id)
             })
             .catch((err) => {
@@ -76,7 +77,7 @@ const LoginScreen = ({ navigation, route }: props) => {
                 />
 
                 <CustomButton
-                    containerStyle={[SpaceStyles.top5]}
+                    containerStyle={[SpaceStyles.top5, asteroidID.length === 0 && { backgroundColor: COLORS.THEME_COLOR + 80 }]}
                     text={`Submit`}
                     textStyle={CommonStyles.buttonText}
                     onPress={() => callAstroApi(asteroidID)}
