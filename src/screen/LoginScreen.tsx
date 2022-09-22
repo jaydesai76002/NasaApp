@@ -37,6 +37,7 @@ const LoginScreen = ({ navigation, route }: props) => {
     }
 
     const callAstroApi = (id: any) => {
+        setLoading(true)
         asteroidCall(`${id}?api_key=${apiKey}`)
             .then(async (res: any) => {
                 setLoading(false)
@@ -76,10 +77,17 @@ const LoginScreen = ({ navigation, route }: props) => {
 
                 <CustomButton
                     containerStyle={[SpaceStyles.top5]}
+                    text={`Submit`}
+                    textStyle={CommonStyles.buttonText}
+                    onPress={() => callAstroApi(asteroidID)}
+                    disabled={asteroidID.length > 0 ? false : true}
+                />
+                <CustomButton
+                    containerStyle={[SpaceStyles.top3]}
                     text={`Random Asteroid`}
                     textStyle={CommonStyles.buttonText}
                     onPress={() => callRandomApi()}
-                    disabled={asteroidID.length > 0 ? false : true}
+                    disabled={false}
                 />
             </View>
         </View>
